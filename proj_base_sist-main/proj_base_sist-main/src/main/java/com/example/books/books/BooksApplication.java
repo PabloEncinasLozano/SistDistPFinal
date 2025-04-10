@@ -1,13 +1,13 @@
-package SisDist.SistDistPFinal;
+package com.example.books.books;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SistDistPFinalApplication {
+public class BooksApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SistDistPFinalApplication.class, args);
+		SpringApplication.run(BooksApplication.class, args);
 	}
 
 }

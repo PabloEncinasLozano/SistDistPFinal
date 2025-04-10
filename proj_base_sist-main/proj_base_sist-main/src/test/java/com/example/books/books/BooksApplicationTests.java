@@ -1,10 +1,10 @@
-package SisDist.SistDistPFinal;
+package com.example.books.books;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SistDistPFinalApplicationTests {
+class BooksApplicationTests {
 
 	@Test
 	void contextLoads() {
