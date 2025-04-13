@@ -1,6 +1,6 @@
-package com.proj.users.repository;
+package com.project.users.repository;
 
-import com.proj.users.model.Users;
+import com.project.users.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LoginRepo extends JpaRepository<Users, Long> {

@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from src.database_requests import get_all_users
 from src.database_requests import register_new_user
 
+
 ''''
 Metodos del API
 

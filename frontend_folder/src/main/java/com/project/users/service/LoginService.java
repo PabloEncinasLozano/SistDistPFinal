@@ -1,7 +1,7 @@
-package com.proj.users.service;
+package com.project.users.service;
 
-import com.proj.users.repository.LoginRepo;
-import com.proj.users.model.Users;
+import com.project.users.model.Users;
+import com.project.users.repository.LoginRepo;
 
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final LoginRepo loginRepo ;
-
-    public LoginService(com.proj.users.repository.LoginRepo loginRepo) {
-
+    
+    public LoginService(LoginRepo loginRepo) {
         this.loginRepo = loginRepo;
     }
 
@@ -28,10 +27,9 @@ public class LoginService {
         if (!user.getPassword().equals(password)){
             return false;
         }
-
+        
         // llega aqui, todo correcto
         return true;
     }
 
 }
-

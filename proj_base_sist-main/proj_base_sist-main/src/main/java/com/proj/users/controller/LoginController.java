@@ -1,12 +1,11 @@
-package com.project.users.controller;
+package com.proj.users.controller;
 
-import com.project.users.service.LoginService;
-import com.project.users.dto.Usersdto;
+import com.proj.users.service.LoginService;
+import com.proj.users.dto.Usersdto;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 public class LoginController {
@@ -28,18 +27,19 @@ public class LoginController {
     @GetMapping("/login/validar")
         public String validarLogin(Usersdto usuario, ModelMap interfazConPantalla) {
 
+            // Validar el usuario y la contraseña
 
             String password = usuario.getPassword();
             String email = usuario.getEmail();
             boolean esValido = loginService.userValidation(email, password);
 
             if (esValido) {
-                // Redirigir al cotalogo
-                return "redirect:/home"; // Cambiar esto a catalogo de tienda (pagina principal)
+                // Si es válido, redirigir a la página de inicio o dashboard
+                return "redirect:/home"; // Cambia esto a la ruta de tu página de inicio
             } else {
-                // Mostrar mensaje de error
+                // Si no es válido, mostrar un mensaje de error
                 interfazConPantalla.addAttribute("error", "Usuario o contraseña incorrectos");
-                return "users"; // Volver a mostrar login
+                return "users"; // Volver a mostrar la página de login
             }
         }
 

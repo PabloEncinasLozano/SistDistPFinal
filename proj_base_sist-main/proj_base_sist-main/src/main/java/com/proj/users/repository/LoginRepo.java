@@ -1,7 +1,8 @@
-package com.example.books.books.repository;
+package com.proj.users.repository;
 
-import com.frontend_folder.model.Login;
+import com.proj.users.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface loginRepo extends JpaRepository<Login, Long> {
+public interface LoginRepo extends JpaRepository<Users, Long> {
+    Users findByEmail(String email);
 }

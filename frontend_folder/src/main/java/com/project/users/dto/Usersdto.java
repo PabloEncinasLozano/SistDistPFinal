@@ -1,4 +1,4 @@
-package com.proj.users.dto;
+package com.project.users.dto;
 
 import lombok.Getter;
 import lombok.Setter;
