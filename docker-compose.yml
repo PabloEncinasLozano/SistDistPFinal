@@ -8,7 +8,7 @@ services:
       #- $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
       - "3306:3306"
     volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d/products_table.sql
+      - ./mysql/db/products_table.sql:/docker-entrypoint-initdb.d/init.sql
 
 
     restart: unless-stopped

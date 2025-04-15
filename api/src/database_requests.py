@@ -1,15 +1,15 @@
 import mysql.connector
 
+#---===Cosas Usuarios===---
 
 def get_all_users():
     """	
     Obtener todos los usuarios de la base de datos
     """
-    #db = sqlite3.connect('./mysql/db/poketienda_database.db')
 
     db = mysql.connector.connect(
-        host = "localhost",
-        port = 3407,
+        host = "mysql",
+        port = 3306,
         user = "root",
         password = "123456",
         database = "poketienda_database"
@@ -19,6 +19,7 @@ def get_all_users():
     try:
         cursor = db.cursor()
         cursor.execute("SELECT email, password FROM users")
+        
         users = cursor.fetchall()
 
         db.close()
@@ -42,8 +43,8 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
 
 
     db = mysql.connector.connect(
-        host = "localhost",
-        port = 3407,
+        host = "mysql",
+        port = 3306,
         user = "root",
         password = "123456",
         database = "poketienda_database"
@@ -57,6 +58,37 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
         db.close()
 
         return {"Message": "Usuario registrado correctamente"}, 200
+
+    except Exception as e:
+        return {"Error": str(e)}, 500
+    
+
+#---===Cosas Productos===---
+
+def get_all_products():
+    """	
+    Obtener todos los productos de la base de datos
+    """
+
+    db = mysql.connector.connect(
+        host = "mysql",
+        port = 3306,
+        user = "root",
+        password = "123456",
+        database = "poketienda_database"
+    )
+
+
+    try:
+        cursor = db.cursor()
+        cursor.execute("SELECT * FROM products")
+        productos = cursor.fetchall()
+
+        db.close()
+
+
+        return productos
+
 
     except Exception as e:
         return {"Error": str(e)}, 500

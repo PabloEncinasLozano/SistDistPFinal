@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 from src.database_requests import get_all_users
 from src.database_requests import register_new_user
-
+from src.database_requests import get_all_products
 
 ''''
 Metodos del API
@@ -15,10 +15,23 @@ DELETE -> Eliminar informacion
 
 app = Flask(__name__) 
 
-
-@app.route('/') 
+'''
+@app.route('/')
 def root ():
-    return "Home"
+    return 'Home'
+
+'''
+@app.route('/', methods=['GET'])
+def root ():
+    try:
+
+        catalogo_productos = get_all_products()
+        return catalogo_productos
+
+    except ValueError as e:
+        return jsonify({"Error":e}), 400
+    except Exception as e:
+        return jsonify({"Error":e}), 500
 
 
 
@@ -44,6 +57,29 @@ def endpoint_login():
         return jsonify({"Error":e}), 400
     except Exception as e:
         return jsonify({"Error":e}), 500
+    
+
+
+
+
+
+
+@app.route('/seeusers', methods=['GET']) 
+def endpoint_seeusers():
+    """	
+    Endpoint para ver los usuarios existentes
+    """
+    try:
+
+
+        valid_users = get_all_users()
+
+        return jsonify(valid_users), 200
+
+    except ValueError as e:
+        return jsonify({"Error":e}), 400
+    except Exception as e:
+        return jsonify({"Error":e}), 500
 
 
 
@@ -57,8 +93,8 @@ def endpoint_register():
         datos = request.get_json()
         email:str = datos["email"]
         password:str = datos["password"]
-        nombre:str = datos["nombre"]
-        apellido:str = datos["apellido"]
+        nombre:str = datos["name"]
+        apellido:str = datos["surname"]
         
 
         valid_users = get_all_users()

@@ -20,10 +20,10 @@
             </thead>
             <tbody>
                 <tr th:each="elemento , posicion : ${listaProductos}">
-                    <th th:text="${elemento.name}"></th>
-                    <th th:text="${elemento.desciption}"></th>
-                    <th th:text="${elemento.type}"></th>
-                    <th th:text="${elemento.price}"></th>
+                    <td th:text="${elemento.name}">Nombre</td>
+                    <td th:text="${elemento.desciption}">Descripcion</td>
+                    <td th:text="${elemento.type}">Tipo de Objeto</td>
+                    <td th:text="${elemento.price}">Precio</td>
                 </tr>
 
             </tbody>
