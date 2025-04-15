@@ -1,11 +1,8 @@
 services:
   mysqldb:
-    image: mysql:8.0.2
+    image: mysql:latest
     restart: unless-stopped
     env_file: .env
-    environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQL_DATABASE
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:

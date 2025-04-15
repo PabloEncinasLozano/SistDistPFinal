@@ -10,4 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ENV FLASK_APP=main:app
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["sleep", "infinity"]
+#CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]

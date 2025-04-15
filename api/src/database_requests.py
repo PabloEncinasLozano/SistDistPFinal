@@ -1,11 +1,20 @@
-import sqlite3
+import mysql.connector
 
 
 def get_all_users():
     """	
     Obtener todos los usuarios de la base de datos
     """
-    db = sqlite3.connect('./mysql/db/users_database.db')
+    #db = sqlite3.connect('./mysql/db/poketienda_database.db')
+
+    db = mysql.connector.connect(
+        host = "localhost",
+        port = 3407,
+        user = "root",
+        password = "123456",
+        database = "poketienda_database"
+    )
+
 
     try:
         cursor = db.cursor()
@@ -29,7 +38,17 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
     """	
     Registrar nuevo usuario en la base de datos
     """
-    db = sqlite3.connect('./mysql/db/users_database.db')
+    #db = sqlite3.connect('./mysql/db/poketienda_database.db')
+
+
+    db = mysql.connector.connect(
+        host = "localhost",
+        port = 3407,
+        user = "root",
+        password = "123456",
+        database = "poketienda_database"
+    )
+
 
     try:
         cursor = db.cursor()
