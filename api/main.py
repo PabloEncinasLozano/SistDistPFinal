@@ -48,6 +48,9 @@ def endpoint_login():
 
         valid_users = get_all_users()
 
+        if email not in valid_users:
+            return jsonify("Usuario no existente"), 200
+
         if email in valid_users and password == valid_users[email]:
             return jsonify("Usuario Valido"), 200
         else:

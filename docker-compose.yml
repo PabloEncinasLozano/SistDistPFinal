@@ -5,7 +5,6 @@ services:
 
     env_file: ./mysql/mysql.env  
     ports:
-      #- $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
       - "3306:3306"
     volumes:
       - ./mysql/db/products_table.sql:/docker-entrypoint-initdb.d/init.sql
@@ -32,6 +31,28 @@ services:
       - ./api/api.env
     networks:
       - final_project_network
+
+  
+  frontend:
+    depends_on:
+      - api
+    container_name: frontend_container
+    build: 
+      context: ./frontend_folder
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+    #expose:
+    #  - "8000"
+    ports:
+      - "8001:8000"
+
+    environment:
+      - SPRING_PROFILES_ACTIVE=no-db #Perfil no db
+
+    networks:
+      - final_project_network
+
 
 networks:
   final_project_network:

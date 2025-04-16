@@ -1,5 +1,5 @@
 import mysql.connector
-
+from flask import jsonify
 #---===Cosas Usuarios===---
 
 def get_all_users():
@@ -82,13 +82,27 @@ def get_all_products():
     try:
         cursor = db.cursor()
         cursor.execute("SELECT * FROM products")
-        productos = cursor.fetchall()
+        productos = cursor.fetchall() #devuelve lista de tuplas
+
+        #meter todas las tuplas a una lista de diccionarios
+        lista_dict_productos=[]
+
+        for prod_actual in productos:
+            dict = {
+                "id":prod_actual[0],
+                "name":prod_actual[1],
+                "description":prod_actual[2],
+                "type":prod_actual[3],
+                "price":prod_actual[4]
+            }
+
+            lista_dict_productos.append(dict)
 
         db.close()
 
 
-        return productos
+        return jsonify(lista_dict_productos)
 
 
     except Exception as e:
-        return {"Error": str(e)}, 500
+        return jsonify({"Error": str(e)}), 500

@@ -17,10 +17,10 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public String vistaHome( ModelMap interfazConPantalla){
+    public String mostrarProductos( ModelMap interfazConPantalla){
         List<Product> productList = productservice.listaProducts();
         interfazConPantalla.addAttribute("listaProductos",productList);
-        return "productos";
+        return "productos"; //devolver nombre del archivo html
     }
 
 }
