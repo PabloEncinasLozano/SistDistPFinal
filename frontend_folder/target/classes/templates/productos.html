@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia de Productos</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 2rem;
+            background-color:rgb(255, 255, 255);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(0, 255, 76);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background-color:rgb(109, 187, 216);
+        }
+
+        th, td{
+            text-align: left;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div>
+    <h1>Wikipedia de Productos</h1>
+    <th>
+        <button style="width: 100px;background-color: rgb(112, 112, 232);text-align: start;">
+            <a th:href="@{/login}" style="float:right">Cerra Sesion</a>
+        </button>
+    </th>
+
+    <th>
+        <button style="width: 100px;background-color: rgb(112, 112, 232);text-align: Start;">
+            <a th:href="@{/pokeAPI}" style="float:right">PokeAPI</a>
+        </button>
+    </th>
+</div>
+
+
+<div class="table-wrap">
+    <table id="tableitm" class="sortable">
+        <caption>
+            <span class="sr-only"></span>
+        </caption>
+        <thead>
+            <tr>
+                <th>
+                    <button style="width: 40px;color: dodgerblue;">
+                        Nombre
+                        <span aria-hidden="true"></span>
+                    </button>
+                </th>
+
+                <th aria-sort="ascending">
+                    <button>
+                        Tipo
+                        <span aria-hidden="true"></span>
+                    </button>
+                </th>
+
+                <th>
+                    Descripcion
+                </th>
+
+                <th>
+                    Precio
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="elemento : ${listaProductos}">
+                <td th:text="${elemento.name}">Nombre</td>
+                <td th:text="${elemento.type}">Tipo de Objeto</td>
+                <td th:text="${elemento.description}">Descripcion</td>
+                <td th:text="${elemento.price}">Precio</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
