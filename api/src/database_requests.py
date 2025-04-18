@@ -12,7 +12,7 @@ def get_all_users():
         port = 3306,
         user = "root",
         password = "123456",
-        database = "poketienda_database"
+        database = "pokewiki_database"
     )
 
 
@@ -39,21 +39,19 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
     """	
     Registrar nuevo usuario en la base de datos
     """
-    #db = sqlite3.connect('./mysql/db/poketienda_database.db')
-
 
     db = mysql.connector.connect(
         host = "mysql",
         port = 3306,
         user = "root",
         password = "123456",
-        database = "poketienda_database"
+        database = "pokewiki_database"
     )
 
 
     try:
         cursor = db.cursor()
-        cursor.execute("INSERT INTO users (email, password, nombre, apellido) VALUES (?, ?, ?, ?)", (email, password, nombre, apellido))
+        cursor.execute("INSERT INTO users (email, password, name, surname) VALUES (%s, %s, %s, %s)", (email, password, nombre, apellido))
         db.commit()
         db.close()
 
@@ -75,7 +73,7 @@ def get_all_products():
         port = 3306,
         user = "root",
         password = "123456",
-        database = "poketienda_database"
+        database = "pokewiki_database"
     )
 
 

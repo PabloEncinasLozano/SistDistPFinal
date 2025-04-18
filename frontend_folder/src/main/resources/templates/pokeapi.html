@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Pokémon</title>
+</head>
+<body>
+    <h1>Consulta de Pokémon</h1>
+
+    <form th:action="@{/pokeAPI}" method="post">
+        <label for="pokeId">Introduce el ID del Pokémon:</label>
+        <input type="text" id="pokeId" name="pokeId" required>
+        <button type="submit">Buscar</button>
+    </form>
+</body>
+</html>

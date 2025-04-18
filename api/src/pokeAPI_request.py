@@ -1,4 +1,6 @@
 import requests
+from flask import jsonify
+
 
 def get_pokemon_info(poke_id):
 
@@ -20,9 +22,4 @@ def get_pokemon_info(poke_id):
     }
 
 
-    print(pokemon_characteritics)
-
-    return pokemon_characteritics
-
-
-get_pokemon_info(23)
+    return jsonify(pokemon_characteritics)

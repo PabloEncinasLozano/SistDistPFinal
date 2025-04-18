@@ -6,6 +6,8 @@ import com.project.users.dto.Usersdto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @Controller
@@ -18,29 +20,37 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-        public String mostrarLogin(ModelMap interfazConPantalla) {
+    public String mostrarLogin(ModelMap interfazConPantalla) {
 
-            interfazConPantalla.addAttribute("usuario", new Usersdto());
-            return "users";
+        interfazConPantalla.addAttribute("usuario", new Usersdto());
+        return "login";
         }
 
 
-    @GetMapping("/login/validar")
-        public String validarLogin(Usersdto usuario, ModelMap interfazConPantalla) {
+
+    @PostMapping("/login")
+    public String processLogin(ModelMap interfazConPantalla,String email, String password){
 
 
-            String password = usuario.getPassword();
-            String email = usuario.getEmail();
-            boolean esValido = loginService.userValidation(email, password);
+        String loginSuccess = loginService.loginUser(email, password);
 
-            if (esValido) {
-                // Redirigir al cotalogo
-                return "redirect:/home"; // Cambiar esto a catalogo de tienda (pagina principal)
-            } else {
-                // Mostrar mensaje de error
-                interfazConPantalla.addAttribute("error", "Usuario o contraseña incorrectos");
-                return "users"; // Volver a mostrar login
-            }
+        //Separar la parte de "Mensaje" del JSON u quedarse solo con la parte
+        // que interesa
+        String mensaje = loginSuccess.split(":")[1];
+
+        // Eliminar las comillas dobles al principio y al final
+        mensaje = mensaje.replace("\"", "").trim();
+
+        mensaje = mensaje.substring(0, mensaje.length() - 1);
+
+        System.out.println(mensaje);
+
+        if (mensaje.equals("Usuario Valido")){
+            return "redirect:/"; //Pasar al catalogo
+        }else{
+            interfazConPantalla.addAttribute("error", mensaje);
+            return "login"; //Mantenerse en el login por fallo al loguearse
         }
+    }
 
 }
