@@ -7,22 +7,24 @@ def get_all_users():
     Obtener todos los usuarios de la base de datos
     """
 
-    db = mysql.connector.connect(
+    conn = mysql.connector.connect(
         host = "mysql",
         port = 3306,
         user = "root",
         password = "123456",
-        database = "pokewiki_database"
+        database = "pokewiki_database",
+        charset='utf8mb4'
     )
 
 
     try:
-        cursor = db.cursor()
+        cursor = conn.cursor()
         cursor.execute("SELECT email, password FROM users")
         
         users = cursor.fetchall()
 
-        db.close()
+        cursor.close()
+        conn.close()
 
         dict_em_pass_users = {email: password for email, password in users}
 
@@ -40,22 +42,31 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
     Registrar nuevo usuario en la base de datos
     """
 
-    db = mysql.connector.connect(
+    conn = mysql.connector.connect(
         host = "mysql",
         port = 3306,
         user = "root",
         password = "123456",
-        database = "pokewiki_database"
+        database = "pokewiki_database",
+        charset='utf8mb4'
     )
 
+    print(email, password, nombre, apellido)
+    print("Conectado a la base de datos")
 
     try:
-        cursor = db.cursor()
-        cursor.execute("INSERT INTO users (email, password, name, surname) VALUES (%s, %s, %s, %s)", (email, password, nombre, apellido))
-        db.commit()
-        db.close()
+        cursor = conn.cursor()
 
-        return {"Message": "Usuario registrado correctamente"}, 200
+        cursor.execute("INSERT INTO users (email, password, name, surname) VALUES (%s, %s, %s, %s)", (email, password, nombre, apellido))
+        conn.commit()
+        
+        cursor.execute("SELECT email, password FROM users")
+        print(cursor.fetchall())
+
+        cursor.close()
+        conn.close()
+
+        #return {"Message": "Usuario registrado correctamente"}, 200
 
     except Exception as e:
         return {"Error": str(e)}, 500
@@ -68,17 +79,18 @@ def get_all_products():
     Obtener todos los productos de la base de datos
     """
 
-    db = mysql.connector.connect(
+    conn = mysql.connector.connect(
         host = "mysql",
         port = 3306,
         user = "root",
         password = "123456",
-        database = "pokewiki_database"
+        database = "pokewiki_database",
+        charset='utf8mb4'
     )
 
 
     try:
-        cursor = db.cursor()
+        cursor = conn.cursor()
         cursor.execute("SELECT * FROM products")
         productos = cursor.fetchall() #devuelve lista de tuplas
 
@@ -96,7 +108,8 @@ def get_all_products():
 
             lista_dict_productos.append(dict)
 
-        db.close()
+        cursor.close()
+        conn.close()
 
 
         return jsonify(lista_dict_productos)

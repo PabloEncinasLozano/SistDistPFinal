@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -41,26 +42,14 @@ public class LoginService {
             //Se hace la peticion a la API
             ResponseEntity<String> response = resttemplate.postForEntity(url, request, String.class);
 
-            
-
             return response.getBody();
 
-         
             
-        } catch (HttpClientErrorException e) {
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
             return e.getResponseBodyAsString();
         } catch (Exception e){
             return "Error al conectar con la API Flask";
         
-            
-            /* 
-            // Captura errores 4xx y saca el body que viene de Flask
-            System.out.println("Flask devolvió un error " + e.getStatusCode() + ": " + e.getResponseBodyAsString());
-            return e.getResponseBodyAsString(); // aquí está el texto que devolviste con jsonify()
-        } catch (Exception e){
-            System.out.println("Error general al conectar con la API Flask: " + e.getMessage());
-            return "No se pudo conectar";
-            */
         }
     } 
 

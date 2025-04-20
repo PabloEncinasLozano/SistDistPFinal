@@ -7,7 +7,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql/db/products_table.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/db/data.sql:/docker-entrypoint-initdb.d/init.sql
 
 
     restart: unless-stopped
@@ -26,7 +26,7 @@ services:
     volumes:
       - ./api:/app
     ports:
-      - "8000:8000"
+      - "8003:8000" #Se puede entrar a los datos sin html desde el 8003
     env_file:
       - ./api/api.env
     networks:
@@ -43,9 +43,9 @@ services:
 
     restart: unless-stopped
     #expose:
-    #  - "8000"
+    #  - "8001"
     ports:
-      - "8001:8000"
+      - "8000:8000" #Se entra desde el 8000 y se conecta al 8000 (API)
 
     environment:
       - SPRING_PROFILES_ACTIVE=no-db #Perfil no db

@@ -16,7 +16,7 @@
 
                 <input type="text" placeholder="&#128273; Nombre" name="name" required>
                 <input type="text" placeholder="&#128274; Apellido" name="surname" required>
-                <input type="text" placeholder="&#128273; Email" name="email" required>
+                <input type="email" placeholder="&#128273; Email" name="email" required>
                 <input type="password" placeholder="&#128274; Contraseña" name="password" required>
 
                 <br>
@@ -25,8 +25,11 @@
                 <br>
                 <br>
                 <a th:href="@{/login}" style="float:right">Iniciar Sesion</a>
-
+                
+                <span th:if="${error}" th:text="${error}" style="color: red; font-weight: bold;"></span>
             </div>
+
+            
         </div>
 
     </form>

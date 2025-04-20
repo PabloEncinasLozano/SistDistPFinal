@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -45,7 +46,7 @@ public class RegisterService {
             //Tomar el error como un string
             return response.getBody();
         
-        } catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException | HttpServerErrorException e){
             return e.getResponseBodyAsString();
             
         } catch (Exception e){
