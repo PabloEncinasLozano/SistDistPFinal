@@ -3,14 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>Buscar Pokémon</title>
+
+    <style>
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 2rem;
+            background-color:rgb(255, 255, 255);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(0, 26, 255);
+        }
+
+        th{
+            text-align: center;
+            border: 1px solid black
+        } 
+
+        td{
+            text-align: left;
+            border: 1px solid black
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+            }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+
+    </style>
+
+
+
 </head>
 <body>
-    <h1>Consulta de Pokémon</h1>
 
-    <form th:action="@{/pokeAPI}" method="post">
-        <label for="pokeId">Introduce el ID del Pokémon:</label>
-        <input type="text" id="pokeId" name="pokeId" required>
+
+    <header>
+        <img src="https://fontmeme.com/permalink/250420/4204dbc30ab39a663a58df8bdd6619c7.png" alt="fuente-pokemon" border="0" style="width: 50%;">
+    </header>
+    <br>
+
+
+    <form th:action="@{/pokeAPI}" method="post" style="background-color: rgb(109, 187, 216);">
+        <label for="pokeId">  Introduce el nombre o ID del Pokémon:</label>
+        <input type="text" id="pokeId" name="idPokemon" required>
         <button type="submit">Buscar</button>
     </form>
+
+
+    <br>
+    <button type="submit" style="width: 100px;background-color: rgb(112, 112, 232);">
+        <a th:href="@{/}">Atras</a>
+    </button>
+
+
+    <br>
+    <!-- Mostrar mensaje de error si lo hay -->
+    <div th:if="${error}" style="color: red; margin-top: 20px;">
+        <p th:text="${error}"></p>
+    </div>
+
+
+    <!-- Mostrar datos del Pokémon si se recibieron -->
+    <div th:if="${datosPokemon}" style="margin-top: 30px; width: 50%;background-color:rgb(109, 187, 216); border: 1px solid black; padding: 20px; margin: auto;">
+        <h2 th:text="'Nombre: ' + ${datosPokemon.name}"></h2>
+        <p th:text="'Altura: ' + ${datosPokemon.height}"></p>
+        <p th:text="'Peso: ' + ${datosPokemon.weight}"></p>
+        <p th:text="'Experiencia base: ' + ${datosPokemon.base_experience}"></p>
+
+
+        <h3>Tipos</h3>
+        <ul>
+            <li th:each="tipo : ${datosPokemon.types}" th:text="${tipo}"></li>
+        </ul>
+
+        <h3>Habilidades</h3>
+        <ul>
+            <li th:each="habilidad : ${datosPokemon.abilities}" th:text="${habilidad}"></li>
+        </ul>
+
+    </div>
 </body>
 </html>

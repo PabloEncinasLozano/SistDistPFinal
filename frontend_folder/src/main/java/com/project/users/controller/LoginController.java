@@ -3,10 +3,13 @@ package com.project.users.controller;
 import com.project.users.service.LoginService;
 import com.project.users.dto.Usersdto;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+
 
 
 
@@ -34,16 +37,20 @@ public class LoginController {
 
         String loginSuccess = loginService.loginUser(email, password);
 
-        //Separar la parte de "Mensaje" del JSON u quedarse solo con la parte
-        // que interesa
-        String mensaje = loginSuccess.split(":")[1];
+        String mensaje = "";
 
-        // Eliminar las comillas dobles al principio y al final
-        mensaje = mensaje.replace("\"", "").trim();
+        if (loginSuccess.contains("mensaje")){
 
-        mensaje = mensaje.substring(0, mensaje.length() - 1);
+            //Separar la parte de "mensaje" del JSON y quedarse solo con la parte
+            // que interesa
+            mensaje = loginSuccess.split(":")[1];
 
-        System.out.println(mensaje);
+            // Eliminar las comillas dobles al principio y al final
+            mensaje = mensaje.replace("\"", "").trim();
+
+            mensaje = mensaje.substring(0, mensaje.length() - 1);
+        }
+
 
         if (mensaje.equals("Usuario Valido")){
             return "redirect:/"; //Pasar al catalogo

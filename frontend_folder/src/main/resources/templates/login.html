@@ -9,14 +9,11 @@
 </head>
 
 <body>
-
-    
-
     <form th:action="@{/login}" method="POST">
         <div style="background-color: white;height: 600px;display: grid;place-items: center;">
             <div style="background-color: cadetblue; width: 300px;padding: 20px;border-radius: 10px;">
                 <h2>Iniciar sesión</h2>
-                <input type="text" placeholder="&#128273; Email" name="email" required>
+                <input type="email" placeholder="&#128273; Email" name="email" required>
                 <input type="password" placeholder="&#128274; Contraseña" name="password" required>
                 
                 
@@ -26,9 +23,11 @@
                 <br>
                 <br>
                 <a th:href="@{/register}" style="float:right">Crear una cuenta</a>
+
+                <span th:if="${error}" th:text="${error}" style="color: red; font-weight: bold;"></span>
             </div>
 
-            <span th:if="${error}" th:text="${error}" style="color: red; font-weight: bold;"></span>
+            
         </div>
 
     </form>
