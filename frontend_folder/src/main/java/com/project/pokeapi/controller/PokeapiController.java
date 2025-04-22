@@ -7,7 +7,10 @@ import com.project.pokeapi.dto.Pokeapidto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
 
 @Controller
 public class PokeapiController {
@@ -17,20 +20,26 @@ public class PokeapiController {
         this.pokeapiservice = pokeapiservice;
     }
 
-    @GetMapping("/showPokeAPI")
+    @GetMapping("/pokeAPI")
     public String mostrarBuscarPokemon(ModelMap interfazConPantalla){
         interfazConPantalla.addAttribute("Pokemon", new Pokeapidto());
-        return "pokeAPI";
+        return "pokeapi";
     }
 
-    @GetMapping("/searchPokeAPI")
-    public String searchPokemon( ModelMap interfazConPantalla, String id){
 
-        String infoPokemonObtenida = pokeapiservice.getPokemon(id);
 
-        interfazConPantalla.addAttribute("Pokemon", infoPokemonObtenida);
 
-        return "pokeapi_info"; //devolver nombre del archivo html
+    @PostMapping("/pokeAPI")
+    public String searchPokemon( ModelMap interfazConPantalla,@RequestParam String idPokemon){
+        try {
+            Map<String, Object> datosPokemon = pokeapiservice.getPokemon(idPokemon);
+            interfazConPantalla.addAttribute("datosPokemon", datosPokemon);
+
+        } catch (Exception e) {
+            interfazConPantalla.addAttribute("error", "No se pudo obtener la información del Pokémon");
+        }
+
+        return "pokeapi"; //devolver nombre del archivo html
         
     }
 

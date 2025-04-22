@@ -39,6 +39,7 @@ def root ():
         return jsonify({"Error":str(e)}), 400
     except Exception as e:
         return jsonify({"Error":str(e)}), 500
+    
 
 
 

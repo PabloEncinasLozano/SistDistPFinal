@@ -17,7 +17,6 @@ def get_pokemon_info(poke_id):
         "base_experience": pokemon_data["base_experience"],
         "types": [type["type"]["name"] for type in pokemon_data["types"]], # Listar los tipos
         "abilities": [ability["ability"]["name"] for ability in pokemon_data["abilities"]], # Listar las habilidades
-        "stats": {stat["stat"]["name"]: stat["base_stat"] for stat in pokemon_data["stats"]} # Listar las estadisticas
 
     }
 
