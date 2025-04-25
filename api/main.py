@@ -36,9 +36,9 @@ def root ():
         return catalogo_productos
 
     except ValueError as e:
-        return jsonify({"Error":str(e)}), 400
+        return jsonify({"error":str(e)}), 400
     except Exception as e:
-        return jsonify({"Error":str(e)}), 500
+        return jsonify({"error":str(e)}), 500
     
 
 
@@ -73,10 +73,9 @@ def endpoint_login():
             
 
     except ValueError as e:
-        return jsonify({"Error":str(e)}), 400
-    
+        return jsonify({"error":str(e)}), 400
     except Exception as e:
-        return jsonify({"Error":str(e)}), 500
+        return jsonify({"error":str(e)}), 500
     
 
 
@@ -111,9 +110,9 @@ def endpoint_register():
             #NOTA: Este caso es lo mismo que en el login
 
     except ValueError as e:
-        return jsonify({"Error":str(e)}), 400
+        return jsonify({"error":str(e)}), 400
     except Exception as e:
-        return jsonify({"Error":str(e)}), 500
+        return jsonify({"error":str(e)}), 500
 
 
 
@@ -143,27 +142,6 @@ def endpoint_pokeAPI():
 
 
 #==============Cosas de pruebas====================
-
-@app.route('/test_leer_archivo', methods=['GET'])
-def test_leer_archivo():
-    try:
-
-        raise RuntimeError("Esto es un error inventado para probar")
-
-
-        with open("archivo_inexistente.txt", "r") as f:
-            contenido = f.read()
-        return jsonify({"contenido": contenido}), 200
-    except FileNotFoundError:
-        return jsonify({"error": "Archivo no encontrado"}), 404
-    except Exception as e:
-        return jsonify({"error": "Error inesperado al leer archivo", "detalle": str(e)}), 500
-
-
-
-
-
-
 
 @app.route('/test_register_user', methods=['POST'])
 def test_register_and_list():
