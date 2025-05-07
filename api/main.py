@@ -4,6 +4,7 @@ from src.database_requests import get_all_users
 from src.database_requests import register_new_user
 from src.database_requests import get_all_products
 from src.pokeAPI_request import get_pokemon_info
+from src.colections import create_new_collection
 
 
 
@@ -138,6 +139,40 @@ def endpoint_pokeAPI():
         return jsonify({"error": str(e)}), 400
     except Exception as e:
         return jsonify({"error":str(e)}), 500
+
+
+
+
+
+
+#--==ENDPOINT para colecciones==--
+@app.route('/collections', methods=['POST','GET']) 
+def endpoint_collections():
+    """	
+    Endpoint para crear una nueva coleccion
+    """
+    try:
+        datos = request.get_json()
+
+        if datos is None:
+            datos = request.form.to_dict()
+        
+        name_collection:str = datos["name_collection"]
+        user_id:int = 1
+        #user_id:int = datos["user_id"]
+        
+
+        if (create_new_collection(name_collection, user_id)):
+            return jsonify({"mensaje":"Coleccion Creada Correctamente"}), 200
+        else:
+            return jsonify({"mensaje":"Error al crear la coleccion"}), 403
+
+
+    except ValueError as e:
+        return jsonify({"error":str(e)}), 400
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+
 
 
 

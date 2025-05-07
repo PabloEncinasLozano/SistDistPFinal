@@ -52,3 +52,11 @@ INSERT INTO products (name, description, type, price) VALUES
 ('Vidasfera', 'Aumenta el dano a costa de PS', 'equipable', 3000),
 ('Campana Alivio', 'Aumenta la amistad del Pokemon', 'equipable', 1000),
 ('Repartir Experiencia', 'Comparte experiencia con otro Pokemon', 'equipable', 0); -- No se puede comprar, precio NULL
+
+
+
+
+INSERT INTO users (email,password,name,surname)
+VALUES ('test@example.com', '123', 'Test User', 'Test Surname');
+
+

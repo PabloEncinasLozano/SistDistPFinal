@@ -51,22 +51,15 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
         charset='utf8mb4'
     )
 
-    print(email, password, nombre, apellido)
-    print("Conectado a la base de datos")
-
     try:
         cursor = conn.cursor()
 
         cursor.execute("INSERT INTO users (email, password, name, surname) VALUES (%s, %s, %s, %s)", (email, password, nombre, apellido))
         conn.commit()
-        
-        cursor.execute("SELECT email, password FROM users")
-        print(cursor.fetchall())
 
         cursor.close()
         conn.close()
 
-        #return {"Message": "Usuario registrado correctamente"}, 200
 
     except Exception as e:
         return {"Error": str(e)}, 500
