@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS collections (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name_collection VARCHAR(60) NOT NULL,
+    name_collection VARCHAR(60) NOT NULL UNIQUE,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -15,6 +15,6 @@ CREATE TABLE if NOT EXISTS collections_items(
 );
 
 
-INSERT INTO collections (name_collection, user_id) VALUES ('Mis Favoritos', 1);
+INSERT INTO collections (name_collection, user_id) VALUES ('MisFavoritos', 1);
 INSERT INTO collections_items (collection_id, product_id) VALUES (1, 2), (1, 5);
 

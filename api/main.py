@@ -5,6 +5,11 @@ from src.database_requests import register_new_user
 from src.database_requests import get_all_products
 from src.pokeAPI_request import get_pokemon_info
 from src.colections import create_new_collection
+from src.colections import add_item_to_collection
+from src.colections import get_collection_items
+from src.colections import get_user_collections
+
+
 
 
 
@@ -146,8 +151,8 @@ def endpoint_pokeAPI():
 
 
 #--==ENDPOINT para colecciones==--
-@app.route('/collections', methods=['POST','GET']) 
-def endpoint_collections():
+@app.route('/create_collection', methods=['POST','GET']) 
+def endpoint_create_collections():
     """	
     Endpoint para crear una nueva coleccion
     """
@@ -166,6 +171,87 @@ def endpoint_collections():
             return jsonify({"mensaje":"Coleccion Creada Correctamente"}), 200
         else:
             return jsonify({"mensaje":"Error al crear la coleccion"}), 403
+
+
+    except ValueError as e:
+        return jsonify({"error":str(e)}), 400
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+    
+
+
+@app.route('/list_items_collection', methods=['GET']) 
+def endpoint_items_collection():
+    """	
+    Endpoint para listar los itemnas de una coleccion
+    """
+    try:
+
+        collection_name = request.args.get("name_collection")
+        #user_id = request.args.get("user_id")
+        user_id = 1
+
+        if not collection_name:
+            return jsonify({"error":"Se debe dar el nombre de la coleccion"}), 400
+
+
+        collection_items = get_collection_items(collection_name, user_id)
+        return collection_items
+
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+
+
+@app.route('/add_to_collection', methods=['POST','GET']) 
+def endpoint_add_item_to_collections():
+    """	
+    Endpoint para añadir un item a una coleccion
+    """
+    try:
+        datos = request.get_json()
+
+        if datos is None:
+            datos = request.form.to_dict()
+        
+        name_collection:str = datos["name_collection"]
+        item_id:int = datos["item_id"]
+        user_id:int = 1
+        #user_id:int = datos["user_id"]
+
+        
+
+        if (add_item_to_collection(name_collection, user_id, item_id)):
+            return jsonify({"mensaje":"Item añadido correctamente"}), 200
+        else:
+            return jsonify({"mensaje":"Error al añadir a la coleccion"}), 403
+
+
+    except ValueError as e:
+        return jsonify({"error":str(e)}), 400
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+    
+
+
+
+@app.route('/list_user_collections', methods=['GET']) 
+def endpoint_list_user_collections():
+    """	
+    Endpoint para listar las colecciones de un usuario
+    """
+    try:
+        user_id = request.args.get("user_id")
+
+        if not user_id:
+            return jsonify({"error":"Este usuario no existe"}), 400
+        
+
+        collection_list=get_user_collections(user_id)
+
+        if (collection_list is not None):
+            return jsonify(collection_list), 200
+        else:
+            return jsonify({"mensaje":"El usuario no tiene collecciones o error al buscarlas"}), 400
 
 
     except ValueError as e:

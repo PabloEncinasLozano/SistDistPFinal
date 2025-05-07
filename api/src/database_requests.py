@@ -109,4 +109,4 @@ def get_all_products():
 
 
     except Exception as e:
-        return jsonify({"Error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500
