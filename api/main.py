@@ -125,7 +125,7 @@ def endpoint_register():
 
 
 
-#--==ENDPOINT para login==--
+#--==ENDPOINT para api externa==--
 @app.route('/pokeAPI', methods=['GET','POST']) 
 def endpoint_pokeAPI():
     """	
@@ -165,7 +165,12 @@ def endpoint_create_collections():
         name_collection:str = datos["name_collection"]
         user_id:int = 1
         #user_id:int = datos["user_id"]
+
+        valid_collection = get_user_collections(user_id)
         
+        if name_collection in valid_collection:
+            return jsonify({"mensaje":"Coleccion ya existente"}), 403
+
 
         if (create_new_collection(name_collection, user_id)):
             return jsonify({"mensaje":"Coleccion Creada Correctamente"}), 200
@@ -183,7 +188,7 @@ def endpoint_create_collections():
 @app.route('/list_items_collection', methods=['GET']) 
 def endpoint_items_collection():
     """	
-    Endpoint para listar los itemnas de una coleccion
+    Endpoint para listar los items de una coleccion
     """
     try:
 
