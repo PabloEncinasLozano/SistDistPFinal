@@ -95,7 +95,7 @@
                 <a th:href="@{/register}" class="text-light">Crear una cuenta</a>
             </div>
 
-            <div th:if="${error}" class="mt-3 text-danger text-center fw-bold" th:text="${error}"></div>
+            <div th:if="${param.error}" class="mt-3 text-danger text-center fw-bold">Usuario o contraseña incorrectos</div>
         </form>
     </div>
 

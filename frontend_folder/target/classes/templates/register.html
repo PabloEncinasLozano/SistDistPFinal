@@ -76,19 +76,19 @@
 
     <!-- Registro Form -->
     <div class="container register-container">
-        <form th:action="@{/register}" method="POST" class="register-box">
+        <form th:action="@{/register}" th:object= ${usuario} method="POST" class="register-box">
             <h2>Crear Usuario</h2>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="👤 Nombre" name="name" required>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="👤 Nombre" name="name" required>
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="👥 Apellido" name="surname" required>
+                <input type="text" th:field="*{surname}" class="form-control" placeholder="👥 Apellido" name="surname" required>
             </div>
             <div class="mb-3">
-                <input type="email" class="form-control" placeholder="📧 Email" name="email" required>
+                <input type="email" th:field="*{email}" class="form-control" placeholder="📧 Email" name="email" required>
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" placeholder="🔒 Contraseña" name="password" required>
+                <input type="password" th:field="*{password}" class="form-control" placeholder="🔒 Contraseña" name="password" required>
             </div>
             <div class="d-grid gap-2">
                 <input type="submit" class="btn btn-light" value="Registrar">

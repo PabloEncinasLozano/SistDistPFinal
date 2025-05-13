@@ -1,5 +1,7 @@
 import mysql.connector
 from flask import jsonify
+
+
 #---===Cosas Usuarios===---
 
 def get_all_users():
@@ -38,9 +40,9 @@ def get_all_users():
 
 
 def register_new_user(email:str, password:str, nombre:str, apellido:str):
-    """	
-    Registrar nuevo usuario en la base de datos
     """
+    Registrar nuevo usuario en la base de datos
+    """ 
 
     conn = mysql.connector.connect(
         host = "mysql",
@@ -60,6 +62,39 @@ def register_new_user(email:str, password:str, nombre:str, apellido:str):
         cursor.close()
         conn.close()
 
+
+    except Exception as e:
+        return {"Error": str(e)}, 500
+
+
+# ---===Cosas Login (Spring Security)===---
+def get_user_password(email:str):
+    """
+    Obtener contraseña de un usuario usando su email
+    """ 
+
+    conn = mysql.connector.connect(
+        host = "mysql",
+        port = 3306,
+        user = "root",
+        password = "123456",
+        database = "pokewiki_database",
+        charset='utf8mb4'
+    )
+
+
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT password FROM users WHERE email = %s", (email,))
+        
+        password = cursor.fetchone()
+
+        password = password[0] if password else None
+        
+        cursor.close()
+        conn.close()
+
+        return password
 
     except Exception as e:
         return {"Error": str(e)}, 500

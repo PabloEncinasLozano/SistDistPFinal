@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS collections (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name_collection VARCHAR(60) NOT NULL UNIQUE,
+    name_collection VARCHAR(60) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

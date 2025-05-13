@@ -1,4 +1,4 @@
-CREATE TABLE products(
+CREATE TABLE IF NOT EXISTS products(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(60) NOT NULL UNIQUE,
     description VARCHAR(60) NOT NULL,
@@ -55,8 +55,5 @@ INSERT INTO products (name, description, type, price) VALUES
 
 
 
-
-INSERT INTO users (email,password,name,surname)
-VALUES ('test@example.com', '123', 'Test User', 'Test Surname');
-
-
+INSERT INTO users (password, email, name, surname) 
+VALUES ('$2a$10$N5DN/N9wqcYaY7pW0LldsOsM9svTY85mqqh2IVhiX04Fz86ChL2ZK', 'test@example.com', 'Test', 'login');

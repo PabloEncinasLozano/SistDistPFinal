@@ -1,6 +1,5 @@
 package com.project.products.dto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +8,7 @@ import lombok.Setter;
 public class Productdto {
     private long id;
     private String name;
+    private String description;
     private String type;
+    private Double price;
 }

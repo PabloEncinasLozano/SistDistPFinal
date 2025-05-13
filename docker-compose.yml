@@ -37,6 +37,7 @@ services:
   frontend:
     depends_on:
       - api
+      - mysql
     container_name: frontend_container
     build: 
       context: ./frontend_folder
@@ -48,8 +49,8 @@ services:
     ports:
       - "8000:8000" #Se entra desde el 8000 y se conecta al 8000 (API)
 
-    environment:
-      - SPRING_PROFILES_ACTIVE=no-db #Perfil no db
+    #environment:
+    #  - SPRING_PROFILES_ACTIVE=no-db #Perfil no db
 
     networks:
       - final_project_network

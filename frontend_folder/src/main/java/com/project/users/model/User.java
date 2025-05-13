@@ -13,17 +13,21 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Usuarios")
-public class Users implements Serializable {
+@Table(name = "users")
+public class User implements Serializable {
 
     @Id
-    @Column(name = "id_user")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
     @Column(name = "password")
     public String password;
     @Column(name = "email")
     public String email;
+    @Column(name = "name")
+    public String name;
+    @Column(name = "surname")
+    public String surname;
 }
 
 

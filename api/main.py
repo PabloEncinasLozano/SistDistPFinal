@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 
+
 from src.database_requests import get_all_users
+from src.database_requests import get_user_password
 from src.database_requests import register_new_user
 from src.database_requests import get_all_products
 from src.pokeAPI_request import get_pokemon_info
@@ -8,8 +10,6 @@ from src.colections import create_new_collection
 from src.colections import add_item_to_collection
 from src.colections import get_collection_items
 from src.colections import get_user_collections
-
-
 
 
 
@@ -49,7 +49,7 @@ def root ():
 
 
 
-#--==ENDPOINT para login==--
+#--==ENDPOINT para login hecho manualmente==--
 @app.route('/login', methods=['POST','GET']) 
 def endpoint_login():
     """	
@@ -82,7 +82,31 @@ def endpoint_login():
         return jsonify({"error":str(e)}), 400
     except Exception as e:
         return jsonify({"error":str(e)}), 500
-    
+ 
+
+
+#--==ENDPOINT para login de Spring Security==--
+
+@app.route('/login', methods=['POST']) 
+
+def endpoint_get_password():
+    try:
+        datos = request.get_json()
+
+        email:str = datos["email"]
+        
+        print(f"Datos recibidos: {datos}", flush=True)
+
+        password = get_user_password(email)
+
+        if password:
+            return jsonify({"password": password}), 200
+        else:
+            return jsonify({"error": "Usuario no encontrado"}), 404
+        
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+
 
 
 #--==ENDPOINT para registrarse==--
@@ -120,8 +144,7 @@ def endpoint_register():
     except Exception as e:
         return jsonify({"error":str(e)}), 500
 
-
-
+ 
 
 
 
@@ -320,6 +343,20 @@ def test_register_and_list():
     
 
 
+
+@app.route('/lista_users', methods=['GET'])
+def test_lista_users():
+
+    try:
+
+        catalogo_productos = get_all_users()
+        return catalogo_productos
+
+    except ValueError as e:
+        return jsonify({"error":str(e)}), 400
+    except Exception as e:
+        return jsonify({"error":str(e)}), 500
+    
 
 
 

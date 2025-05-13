@@ -32,7 +32,7 @@ public class ItemsCollectionController {
 
 
     @PostMapping("/itemCollections/create")
-    public String crearItemCollections(@RequestParam ("name_collection") String name_collection, ModelMap interfazConPantalla) {
+    public String crateItemCollections(@RequestParam ("name_collection") String name_collection, ModelMap interfazConPantalla) {
         
         Map<String, String> creationSuccess = itemCollectionService.createNewCollection(name_collection);
     

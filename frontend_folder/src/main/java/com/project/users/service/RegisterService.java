@@ -1,29 +1,47 @@
 package com.project.users.service;
 
-import com.project.users.model.Users;
+import com.project.users.model.User;
+import com.project.users.repository.UsersRepository;
 
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-import java.util.HashMap;
 
 @Service
 public class RegisterService {
-    
+    /* 
     private final RestTemplate resttemplate;
     private final String url = "http://api:8000/register";
 
     public RegisterService(){
         this.resttemplate = new RestTemplate();
     }
+    */
 
+    @Autowired 
+    private UsersRepository userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public User registerUser(User usuario){
+
+        if (userRepo.findByEmail(usuario.getEmail()).isPresent()){
+            throw new IllegalArgumentException("Email ya registrado");
+        }
+
+        String encodedPassword=passwordEncoder.encode(usuario.getPassword());
+
+        usuario.setPassword(encodedPassword);
+
+        return userRepo.save(usuario);
+    }
+       
+
+
+    /*
     public String registerUser(String email, String password, String nombre, String apellido){
         try {
 
@@ -53,4 +71,5 @@ public class RegisterService {
             return "Error al conectar con la API Flask";
         }
     }
+     */
 }
