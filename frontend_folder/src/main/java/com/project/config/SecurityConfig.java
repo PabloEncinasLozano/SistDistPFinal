@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 
 
@@ -55,7 +53,7 @@ public class SecurityConfig {
         http.formLogin(form -> form  //-------Esto dice que hacer en caso de que no haya login, haya error o otros casos
                         .loginPage("/login")
                         .usernameParameter("email")  
-                        .failureUrl("/login?error=true")
+                        .failureUrl("/login")
                         .defaultSuccessUrl("/",true)
                         .permitAll()
                 );
@@ -65,11 +63,8 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID") // Eliminar la cookie de sesión
 
-                        /*.logoutSuccessHandler(logoutSuccessHandler)
-                        .deleteCookies(cookieNamesToClear)
-                        .addLogoutHandler(logoutHandler)
-                        */
                 );
 
         // Configuracion de reglas de acceso

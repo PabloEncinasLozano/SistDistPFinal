@@ -1,0 +1,10 @@
+com\project\products\dto\Productdto.class
+com\project\PokeWikiApplication.class
+com\project\products\service\ProductService.class
+com\project\users\dto\Usersdto.class
+com\project\products\controller\ProductController.class
+com\project\users\service\LoginService.class
+com\project\products\model\Product.class
+com\project\users\model\Users.class
+com\project\products\service\ProductService$1.class
+com\project\users\controller\LoginController.class

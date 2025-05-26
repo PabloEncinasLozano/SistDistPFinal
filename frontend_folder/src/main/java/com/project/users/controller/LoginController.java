@@ -29,10 +29,12 @@ public class LoginController {
         interfazConPantalla.addAttribute("usuario", new Usersdto());
 
         if (error!= null){
+            
             interfazConPantalla.addAttribute("loginError",true);  
         }
         return "login";
         }
+
 
 
     /*
