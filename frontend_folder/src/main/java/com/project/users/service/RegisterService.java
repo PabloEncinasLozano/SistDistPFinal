@@ -2,7 +2,7 @@ package com.project.users.service;
 
 import com.project.users.dto.Usersdto;
 import com.project.users.model.User;
-import com.project.users.repository.UsersRepository;
+import com.project.users.repository.UserRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class RegisterService {
     */
 
     @Autowired 
-    private UsersRepository userRepo;
+    private UserRepository userRepo;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;

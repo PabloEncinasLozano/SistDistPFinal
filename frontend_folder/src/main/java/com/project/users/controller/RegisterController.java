@@ -8,11 +8,15 @@ import com.project.users.model.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 
 
@@ -22,11 +26,15 @@ public class RegisterController {
     
 
     private final RegisterService registerService;
+    private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
 
-    public RegisterController(RegisterService registerService, AuthenticationManager authenticationManager) {
+
+
+    public RegisterController(RegisterService registerService, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
         this.registerService = registerService;
-        this.authenticationManager = authenticationManager; // Inicializar con null o inyectar correctamente
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -39,7 +47,7 @@ public class RegisterController {
 
 
     @PostMapping("/register")
-    public String procesarRegistro(@ModelAttribute("usuario") Usersdto usuariodto, ModelMap model) {
+    public String procesarRegistro(@ModelAttribute("usuario") Usersdto usuariodto, ModelMap interfazConPantalla, RedirectAttributes redirectAttributes) {
 
         try {
 
@@ -50,21 +58,15 @@ public class RegisterController {
             usuario.setName(usuariodto.getName());
             usuario.setSurname(usuariodto.getSurname());
 
-            registerService.registerUser(usuario);            
+            registerService.registerUser(usuario);  
 
-            // Autenticación del usuario después del registro
-            UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(usuariodto.getEmail(), usuariodto.getPassword());
+            redirectAttributes.addFlashAttribute("registroExitoso", true);
 
-
-            Authentication auth = authenticationManager.authenticate(authToken);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            return "redirect:/";
+            return "redirect:/login";
             
 
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage()); // Mostrar el error en el HTML
+            interfazConPantalla.addAttribute("error", e.getMessage()); // Mostrar el error en el HTML
             return "register";
         }
         

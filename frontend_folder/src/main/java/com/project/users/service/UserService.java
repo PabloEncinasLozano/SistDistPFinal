@@ -7,14 +7,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.users.model.User;
-import com.project.users.repository.UsersRepository;
+import com.project.users.repository.UserRepository;
 
 @Service
 public class UserService {
 
 
     @Autowired
-    private UsersRepository userRepo;
+    private UserRepository userRepo;
 
 
     public User getUserByEmail(String email) {

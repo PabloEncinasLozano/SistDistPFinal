@@ -1,4 +1,4 @@
-package com.project.collections.model;
+package com.project.teams.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,15 +14,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "collections")
-public class ItemsCollection implements Serializable {
+@Table(name = "teams_list")
+public class Team implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
-    @Column(name = "name_collection")
-    public String name_collection;
-    @Column(name = "user_id")
-    public int user_id;
+    private int id;
+
+    @Column(name = "name_team")
+    private String name;
+
+    @Column(name = "user_email")
+    private String email;
 }
 

@@ -78,6 +78,11 @@
         </div>
     </nav>
 
+    <!-- Muestra el mensaje solo tras el registro -->
+    <div th:if="${registroExitoso}" class="alert alert-success text-center">
+        Tu cuenta se ha creado correctamente. Por favor, iniciar sesión con ella.
+    </div>
+
     <!-- Muestra el mensaje solo si el email se ha cambiado -->
     <div th:if="${emailCambiado}" class="alert alert-success text-center">
         Tu correo se ha actualizado correctamente. Por favor, vuelve a iniciar sesión.

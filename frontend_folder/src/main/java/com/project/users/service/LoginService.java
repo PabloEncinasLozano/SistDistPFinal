@@ -1,7 +1,7 @@
 package com.project.users.service;
 
 import com.project.users.model.User;
-import com.project.users.repository.UsersRepository;
+import com.project.users.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -17,7 +17,7 @@ public class LoginService {
 
 
     @Autowired
-    private UsersRepository userRepo;
+    private UserRepository userRepo;
     
     public String getPassByEmail(String email){
 

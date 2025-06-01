@@ -123,34 +123,38 @@
     <div class="container">
         <div class="content-wrapper">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="text-center">Mis Colecciones</h1>
+                <h1 class="text-center"   th:text="${team.name}">Nombre del Equipo</h1>
 
-                <button type="button" class="btn btn-success"  data-bs-toggle="collapse" data-bs-target="#formNuevaColeccion">
-            	    <span class = "fs-4">+</span>
-                </button>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button type="button" class="btn btn-success me-2"  data-bs-toggle="collapse" data-bs-target="#formcambiarNombre">
+            	        <span class = "fs-4">Editar</span>
+                    </button>
+
+                    <button type="button" class="btn btn-success"  data-bs-toggle="collapse" style="color: red;">
+            	        <span class = "fs-4">Eliminar</span>
+                    </button>
+                </div>
+
+
 
             </div>
-            <!-- Formulario para agregar una nueva colección -->
-            <div class="collapse" id="formNuevaColeccion">
-                <form th:action="@{/itemCollections/create}" method="post" class="card card-body" >
+
+            <!-- Formulario para cambiar el nombre de un equipo -->
+            <div class="collapse" id="formcambiarNombre">
+                <form th:action="@{/teamsList/{id}/changeName}" method="post" class="card card-body" >
                     <div class="mb-3">
-                        <label for="name_collection" class="form-label">Nombre de la colección</label>
-                        <input type="text" class="form-control" id="name_collection" name="name_collection" required>
+                        <label for="new_name" class="form-label">Nombre de la colección</label>
+                        <input type="text" class="form-control" id="new_name" name="new_name" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Crear Colección</button>
+                    <button type="submit" class="btn btn-primary">aplicar</button>
                 </form>
             </div>  
             
-            <div th:if="${error}" class="mt-3 text-danger text-center fw-bold" th:text="${error}"></div>
+            <div th:if="${error}" class="mt-3 text-danger text-center fw-bold">Ya existe un equipo con este nombre</div>
 
+            <!-- Aqui se muestran los pokemon del equipo -->
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col" th:each="col : ${itemCollection}">
-                    <div class="card h-100 text-center shadow-sm">
-                        <div class="card-body">
-                            <i class="bi bi-journal-bookmark"></i>
-                            <h5 class="card-title" th:text="${col.name_collection}">Nombre de la colección</h5>
-                        </div>
-                    </div>
+                <div class="col" th:each="team : ${listaPokemons}"> 
                 </div>
             </div>
 

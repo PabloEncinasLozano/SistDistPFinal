@@ -15,12 +15,14 @@ public class ControllerGlobal {
 
         boolean estaAutenticado = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
 
-        model.addAttribute("usuarioAutenticado", estaAutenticado);
+        
 
         if (estaAutenticado) {
             String email = auth.getName(); // esto da el email del usuario autenticado
-            System.out.println(auth.getName()); // QUITAR DESPUES
+            model.addAttribute("usuarioAutenticado", true);
             model.addAttribute("emailUsuario", email);
+        }else{
+            model.addAttribute("usuarioAutenticado", false);
         }
     }
 }
