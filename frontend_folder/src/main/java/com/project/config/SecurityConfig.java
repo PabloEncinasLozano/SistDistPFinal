@@ -80,8 +80,7 @@ public class SecurityConfig {
 
 
                 //Aqui se meten las direcciones del controlador que no requieren login.
-                .requestMatchers("/","/register","/login",
-                "/pokeapi").permitAll()
+                .requestMatchers("/","/register","/login","/pokeAPI").permitAll()
                 .anyRequest().authenticated()
 
                 
