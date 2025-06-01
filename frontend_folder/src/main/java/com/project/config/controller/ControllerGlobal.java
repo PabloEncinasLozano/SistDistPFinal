@@ -19,6 +19,7 @@ public class ControllerGlobal {
 
         if (estaAutenticado) {
             String email = auth.getName(); // esto da el email del usuario autenticado
+            System.out.println(auth.getName()); // QUITAR DESPUES
             model.addAttribute("emailUsuario", email);
         }
     }

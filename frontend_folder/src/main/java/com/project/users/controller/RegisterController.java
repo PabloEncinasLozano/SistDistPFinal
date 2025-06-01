@@ -5,12 +5,16 @@ import com.project.users.service.RegisterService;
 import com.project.users.dto.Usersdto;
 import com.project.users.model.User;
 
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.authentication.AuthenticationManager;
+
 
 
 @Controller
@@ -18,9 +22,11 @@ public class RegisterController {
     
 
     private final RegisterService registerService;
+    private final AuthenticationManager authenticationManager;
 
-    public RegisterController(RegisterService registerService) {
+    public RegisterController(RegisterService registerService, AuthenticationManager authenticationManager) {
         this.registerService = registerService;
+        this.authenticationManager = authenticationManager; // Inicializar con null o inyectar correctamente
     }
 
 
@@ -32,7 +38,7 @@ public class RegisterController {
     }
 
 
-        @PostMapping("/register")
+    @PostMapping("/register")
     public String procesarRegistro(@ModelAttribute("usuario") Usersdto usuariodto, ModelMap model) {
 
         try {
@@ -46,8 +52,15 @@ public class RegisterController {
 
             registerService.registerUser(usuario);            
 
+            // Autenticación del usuario después del registro
+            UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(usuariodto.getEmail(), usuariodto.getPassword());
 
-            return "redirect:/"; // o donde quieras redirigir después del registro
+
+            Authentication auth = authenticationManager.authenticate(authToken);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            return "redirect:/";
             
 
         } catch (IllegalArgumentException e) {

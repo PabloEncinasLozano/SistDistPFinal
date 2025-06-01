@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        System.out.println("Email (en user detail): " + email); // QUITAR DESPUES
 
         // Buscar el usuario por su email utilizando el LoginService
         String password = LoginService.getPassByEmail(email);
@@ -30,7 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario con el email " + email + " no encontrado");
         }
 
-        System.out.println("Contraseña: " + password); // QUITAR DESPUES
 
         // Crea una instancia de BCryptPasswordEncoder
         //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

@@ -78,6 +78,16 @@
         </div>
     </nav>
 
+    <!-- Muestra el mensaje solo si el email se ha cambiado -->
+    <div th:if="${emailCambiado}" class="alert alert-success text-center">
+        Tu correo se ha actualizado correctamente. Por favor, vuelve a iniciar sesión.
+    </div>
+
+    <!-- Muestra el mensaje solo si la contraseña se ha cambiado -->
+    <div th:if="${passwordCambiada}" class="alert alert-success text-center">
+        Tu contraseña se ha actualizado correctamente. Por favor, vuelve a iniciar sesión.
+    </div>
+
     <!-- Login form -->
     <div class="container login-container">
         <form th:action="@{/login}" method="POST" class="login-box">

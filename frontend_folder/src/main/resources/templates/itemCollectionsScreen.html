@@ -98,14 +98,20 @@
 
                         <!-- desplegable usuario-->
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" >Editar</a></li>
+                                <form th:action="@{/userInfo}" method="get" id="editUserInfoForm"></form>
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('editUserInfoForm').submit();">Editar</a>
 
                             <li>
                                 <form th:action="@{/logout}" method="post" id="logoutForm"></form>
                                 <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
                             </li>
                             <!--li><form class="dropdown-item" method="post" th:action="@{/logout}">Cerrar sesión</a></li-->
-                            <li><a class="dropdown-item" style="color: red;" >Eliminar</a></li>
+                            <li>
+                                <form th:action="@{/borrarUsuario}" method="post" id="borrarUserForm"></form>
+                                <a href="#" class="dropdown-item text-danger" 
+                                onclick="if(confirm('¿Estas seguro de eliminar tu cuenta? Esta acción no se puede deshacer.')) { 
+                                document.getElementById('borrarUserForm').submit(); }">Eliminar</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -1,10 +1,12 @@
 package com.project.users.service;
 
+import com.project.users.dto.Usersdto;
 import com.project.users.model.User;
 import com.project.users.repository.UsersRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,7 @@ public class RegisterService {
         String encodedPassword=passwordEncoder.encode(usuario.getPassword());
 
         usuario.setPassword(encodedPassword);
+
 
         return userRepo.save(usuario);
     }

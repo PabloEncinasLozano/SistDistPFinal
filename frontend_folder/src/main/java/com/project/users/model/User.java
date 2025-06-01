@@ -28,6 +28,15 @@ public class User implements Serializable {
     public String name;
     @Column(name = "surname")
     public String surname;
+
+
+
+    public User(String email, String password, String name, String surname) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+    }
 }
 
 
