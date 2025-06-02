@@ -14,6 +14,3 @@ CREATE TABLE if NOT EXISTS pokemon_team(
 );
 
 
-INSERT INTO teams_list (name_team, user_email) VALUES ('MisFavoritos', 'test@example.com');
-INSERT INTO pokemon_team (team_id, pokemon_name) VALUES (1, 'pikachu'), (1, 'bulbasur');
-

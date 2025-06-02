@@ -56,8 +56,9 @@ public class SecurityConfig {
         // Configuracion de login
         http.formLogin(form -> form  //-------Esto dice que hacer en caso de que no haya login, haya error o otros casos
                         .loginPage("/login")
+                        .loginProcessingUrl("/login") 
                         .usernameParameter("email")  
-                        .failureUrl("/login")
+                        .failureUrl("/login?error=true") //Para mandar el error en caso de fallo
                         .defaultSuccessUrl("/",true)
                         .permitAll()
                 );

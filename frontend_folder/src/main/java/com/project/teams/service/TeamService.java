@@ -83,7 +83,7 @@ public class TeamService {
 
     public boolean cambiarName (String email, String new_name, int id) {
 
-        // Buscar el equipo por el email del usuario
+        // Buscar el equipo por el id
         Team equipo = teamRepo.findById(id).orElse(null);
         if (equipo == null) {
             return false; // No se encontró ningún equipo con ese id
@@ -99,7 +99,6 @@ public class TeamService {
         return true;
 
     }
-
 
 
 

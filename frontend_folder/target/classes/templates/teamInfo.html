@@ -105,7 +105,6 @@
                                 <form th:action="@{/logout}" method="post" id="logoutForm"></form>
                                 <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
                             </li>
-                            <!--li><form class="dropdown-item" method="post" th:action="@{/logout}">Cerrar sesión</a></li-->
                             <li>
                                 <form th:action="@{/borrarUsuario}" method="post" id="borrarUserForm"></form>
                                 <a href="#" class="dropdown-item text-danger" 
@@ -126,12 +125,17 @@
                 <h1 class="text-center"   th:text="${team.name}">Nombre del Equipo</h1>
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <button type="button" class="btn btn-success me-2"  data-bs-toggle="collapse" data-bs-target="#formcambiarNombre">
-            	        <span class = "fs-4">Editar</span>
+                    <button type="button" class="btn btn-success me-2"  data-bs-toggle="collapse" data-bs-target="#formNombrePokemon">
+                        <i class="bi bi-plus-lg" style="color: white;"></i>
                     </button>
 
-                    <button type="button" class="btn btn-success"  data-bs-toggle="collapse" style="color: red;">
-            	        <span class = "fs-4">Eliminar</span>
+
+                    <button type="button" class="btn btn-success me-2"  data-bs-toggle="collapse" style="background-color: #0d6efd;" data-bs-target="#formcambiarNombre">
+                        <i class="bi bi-pencil" style="color: white;"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-success"  data-bs-toggle="collapse" style="background-color: red; " data-bs-target="#formBorrarEquipo">
+                        <i class="bi bi-trash3" style="color: white;"></i>
                     </button>
                 </div>
 
@@ -141,21 +145,83 @@
 
             <!-- Formulario para cambiar el nombre de un equipo -->
             <div class="collapse" id="formcambiarNombre">
-                <form th:action="@{/teamsList/{id}/changeName}" method="post" class="card card-body" >
+                <form th:action="@{/teamsList/{id}/changeName(id=${team.id})}" method="post" class="card card-body" >
                     <div class="mb-3">
-                        <label for="new_name" class="form-label">Nombre de la colección</label>
+                        <label for="new_name" class="form-label">Nuevo nombre para el equipo</label>
                         <input type="text" class="form-control" id="new_name" name="new_name" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">aplicar</button>
+                    <button type="submit" class="btn btn-primary">Aplicar</button>
                 </form>
             </div>  
             
             <div th:if="${error}" class="mt-3 text-danger text-center fw-bold">Ya existe un equipo con este nombre</div>
 
+
+            <!-- Formulario para borrar el equipo -->
+            <div class="collapse" id="formBorrarEquipo">
+                <form th:action="@{/teamsList/{id}/removeTeam(id=${team.id})}" method="post" class="card card-body" >
+                        <p>¿Estas seguro de eliminar este equipo? Esta acción no se puede deshacer.'</p>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <input type="hidden" name="id_team" th:value="${team.id}" />
+                </form>
+            </div>  
+
+
+
+            <h3 class="text-center mt-4">Pokemons del equipo</h3>
+            <!-- Formulario para añadir un pokemon -->
+            <div class="collapse" id="formNombrePokemon">
+                <form th:action="@{/teamsList/{id}/addPokemon(id=${team.id})}" method="post" class="card card-body" >
+                    <div class="mb-3">
+                        <label for="new_pokemon" class="form-label">Nuevo pokemon</label>
+                        <input type="text" class="form-control" placeholder="Escribe el nombre del pokemon que quieras añadir al equipo" id="new_pokemon" name="new_pokemon" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </form>
+            </div>  
+
             <!-- Aqui se muestran los pokemon del equipo -->
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col" th:each="team : ${listaPokemons}"> 
-                </div>
+   
+
+            <div th:if="${#lists.isEmpty(team.pokemons)}" class="text-center text-muted">
+                Este equipo aún no tiene Pokemon.
+            </div>
+
+
+            <ul class="list-group mt-3">
+                <li class="list-group-item d-flex align-items-center justify-content-between" th:each="pokemon : ${listaPokemons}">
+                    <span class="fw-bold ms-2 text-capitalize" th:text="${pokemon.id.name}"> Nombre del Pokemon</span>
+
+
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Boton para editar nombre pokemon-->
+                        <form th:action="@{/teamsList/{id}/changePokemonName(id=${team.id})}" method="post" class="d-flex align-items-center gap-2">
+                            <input type="hidden" name="current_name" th:value="${pokemon.id.name}" />
+                            <input type="text" class="form-control form-control-sm" placeholde placeholder="Nuevo nombre" name="new_name" required />
+                            <button type="submit" class="btn btn-success btn-sm d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;">
+                                <i class="bi bi-pencil" style="color: white;"></i>
+                            </button>
+                        </form>
+
+
+                        <!-- Boton para eliminar pokemon-->
+                        <form th:action="@{/teamsList/{id}/removePokemon(id=${team.id})}" method="post">
+                            <input type="hidden" name="name_pokemon" th:value="${pokemon.id.name}" />
+                            <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;">
+                                <i class="bi bi-trash3" style="color: white;"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </li>
+            </ul>
+
+            <div th:if="${errorMaxPokemons}" class="mt-3 text-danger text-center fw-bold">Numero maximo de pokemons alcanzados</div>
+            
+            <div class="mt-5">
+                <a class="btn btn-success me-2" style="background-color: #0d6efd; width: 40px;" th:href="@{/teamsList}">
+                    <i class="bi bi-arrow-left-short" style="color: white;"></i> 
+                </a>
             </div>
 
         </div>

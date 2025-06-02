@@ -14,5 +14,6 @@ public interface TeamRepository extends JpaRepository<Team, Integer>{
     List<Team> findByEmail(String email);
 
     boolean existsByNameAndEmail(String name, String email);
+
     
 }

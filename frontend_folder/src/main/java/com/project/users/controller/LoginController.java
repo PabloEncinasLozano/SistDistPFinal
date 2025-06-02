@@ -32,6 +32,8 @@ public class LoginController {
     @GetMapping("/login")
     public String mostrarLogin(ModelMap interfazConPantalla, @RequestParam (value = "error", required = false) String error) {
 
+        System.out.println("LOGIN CONTROLLER");  // QUITAR DESPUES
+
         interfazConPantalla.addAttribute("usuario", new Usersdto());
 
         if (error!= null){
@@ -39,7 +41,7 @@ public class LoginController {
             interfazConPantalla.addAttribute("loginError",true);  
         }
         return "login";
-        }
+    }
 
 
 

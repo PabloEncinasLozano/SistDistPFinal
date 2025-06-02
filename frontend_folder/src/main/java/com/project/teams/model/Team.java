@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -16,6 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "teams_list")
 public class Team implements Serializable {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,5 +29,9 @@ public class Team implements Serializable {
 
     @Column(name = "user_email")
     private String email;
+
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PokemonTeam> pokemons = new ArrayList<>();
 }
 

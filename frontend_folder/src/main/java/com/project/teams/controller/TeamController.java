@@ -29,7 +29,7 @@ public class TeamController {
 
 
     @GetMapping("/teamsList")
-    public String mostrarItemCollections(ModelMap interfazConPantalla) {
+    public String mostrarEquipos(ModelMap interfazConPantalla) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
 
@@ -43,11 +43,28 @@ public class TeamController {
 
 
     @PostMapping("/teamsList/create")
-    public String crateItemCollections(@RequestParam ("new_team_name") String name_team, ModelMap interfazConPantalla) {
+    public String crearEquipo(@RequestParam ("new_team_name") String name_team, ModelMap interfazConPantalla, RedirectAttributes redirectAttributes) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
         
         boolean exito = teamService.crearEquipo(name_team, email);
+    
+        if (!exito) {
+            redirectAttributes.addFlashAttribute("error", true);
+        }
+
+
+        return "redirect:/teamsList"; //Volver a la pantalla de colecciones
+
+    }
+
+
+    @PostMapping("/teamsList/{id}/removeTeam")
+    public String borrarEquipo(@PathVariable ("id") int id, @RequestParam ("id_team") int id_team, ModelMap interfazConPantalla) {
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
+        
+        boolean exito = teamService.eliminarEquipo(id_team, email);
     
         if (!exito) {
             interfazConPantalla.addAttribute("error", true);
@@ -59,30 +76,11 @@ public class TeamController {
     }
 
 
-    @GetMapping("/teamsList/{id}")
-    public String mostrarEquipo(@PathVariable ("id") int id, ModelMap interfazConPantalla) {
-
-        String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
-
-        Team equipo = teamService.getTeamById(id, email);
-        
-
-        if (equipo == null) {
-            interfazConPantalla.addAttribute("error", true);
-            return "redirect:/teamsList"; 
-        }
 
 
-        interfazConPantalla.addAttribute("team", equipo);
-    
 
-        return "teamInfo"; //Volver a la pantalla de colecciones
-
-    }
-
-
-    @GetMapping("/teamsList/{id}/changeName")
-    public String cambiarTeamName(@PathVariable ("id") int id, @RequestParam("new_name") String new_name, ModelMap interfazConPantalla) {
+    @PostMapping("/teamsList/{id}/changeName")
+    public String cambiarNombreEquipo(@PathVariable ("id") int id, @RequestParam("new_name") String new_name, ModelMap interfazConPantalla) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
 
@@ -94,32 +92,8 @@ public class TeamController {
             interfazConPantalla.addAttribute("error", "Error al cambiar el nombre");
         }
 
-        return "redirect:/teamInfo"; //Volver a la pantalla de colecciones
+        return "redirect:/teamsList/"+id; //Volver a la pantalla de colecciones
 
     }
-
-
-    /* 
-    @PostMapping("/itemCollections/create")
-    public String crateItemCollections(@RequestParam ("name_collection") String name_collection, ModelMap interfazConPantalla) {
-        
-        Map<String, String> creationSuccess = itemCollectionService.createNewCollection(name_collection);
-    
-        String mensaje = creationSuccess.getOrDefault("mensaje", "Error al crear la colección");
-
-
-        if (mensaje.equals("Coleccion Creada Correctamente")){
-            interfazConPantalla.addAttribute("success", mensaje);
-        }else{
-            interfazConPantalla.addAttribute("error", mensaje); 
-        }
-
-        List<ItemsCollection> collectionList = itemCollectionService.listaCollections();
-        interfazConPantalla.addAttribute("itemCollection", collectionList);
-
-        return "itemCollectionsScreen"; //Volver a la pantalla de colecciones
-
-    }
-    */
     
 }
