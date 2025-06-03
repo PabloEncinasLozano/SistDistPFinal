@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS teams_list (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name_team VARCHAR(60) NOT NULL,
     user_email VARCHAR(60) NOT NULL,
-    FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
+    FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 

@@ -26,23 +26,5 @@ public class PokeapiService {
         return response.getBody();
 
 
-        /* 
-        try{
-            String url = "http://api:8000/pokeAPI?id=" + idPokemon;
-
-            ResponseEntity<String> response = resttemplate.getForEntity(url, String.class);
-
-
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return response.getBody();
-
-            } else {
-                return "Error: No se pudo obtener informacion del Pokemon.";
-            }
-            
-        } catch (Exception e) {
-            return "Error al conectar con la API de Pokemon: " + e.getMessage();
-        }
-            */
     }
 }

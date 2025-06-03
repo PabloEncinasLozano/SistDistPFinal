@@ -1,7 +1,6 @@
 package com.project.teams.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,10 +32,8 @@ public class TeamController {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName(); // Obtiene el email del usuario autenticado
 
-        System.out.println("Email del usuario autenticado: " + email); //QUITAR DESPUES
         List<Team> teamList = teamService.listaEquipos(email);
 
-        System.out.println("Email del usuario autenticado: " + email); //QUITAR DESPUES
         interfazConPantalla.addAttribute("listaEquipos", teamList);
         return "teams"; //devolver nombre del archivo html
     }

@@ -32,7 +32,6 @@ public class LoginController {
     @GetMapping("/login")
     public String mostrarLogin(ModelMap interfazConPantalla, @RequestParam (value = "error", required = false) String error) {
 
-        System.out.println("LOGIN CONTROLLER");  // QUITAR DESPUES
 
         interfazConPantalla.addAttribute("usuario", new Usersdto());
 
@@ -73,37 +72,5 @@ public class LoginController {
 
     }
 
-
-
-    /*
-    @PostMapping("/login")
-    public String processLogin(ModelMap interfazConPantalla,String email, String password){
-
-
-        String loginSuccess = loginService.loginUser(email, password);
-
-        String mensaje = "";
-
-        if (loginSuccess.contains("mensaje")){
-
-            //Separar la parte de "mensaje" del JSON y quedarse solo con la parte
-            // que interesa
-            mensaje = loginSuccess.split(":")[1];
-
-            // Eliminar las comillas dobles al principio y al final
-            mensaje = mensaje.replace("\"", "").trim();
-
-            mensaje = mensaje.substring(0, mensaje.length() - 1);
-        }
-
-
-        if (mensaje.equals("Usuario Valido")){
-            return "redirect:/"; //Pasar al catalogo
-        }else{
-            interfazConPantalla.addAttribute("error", mensaje);
-            return "login"; //Mantenerse en el login por fallo al loguearse
-        }
-    }
-    */
 
 }

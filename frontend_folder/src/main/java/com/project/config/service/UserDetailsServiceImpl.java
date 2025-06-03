@@ -30,12 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
 
-        // Crea una instancia de BCryptPasswordEncoder
-        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    
-        // Codifica la contraseña obtenida de la API
-        //String encodedPassword = passwordEncoder.encode(password);
-
         return User.withUsername(email)
                 .password(password)
                 .authorities("USER") // Aquí se selecciona el rol del usuario
