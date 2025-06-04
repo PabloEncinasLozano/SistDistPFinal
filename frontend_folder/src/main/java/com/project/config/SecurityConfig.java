@@ -29,7 +29,11 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService;
 
 
-
+    /**
+     * Configuración de la autenticación.
+     * 
+     * @return AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -38,18 +42,36 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
+    /**
+     * Configuración del codificador de contraseñas.
+     * 
+     * @return BCryptPasswordEncoder
+     */
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
 
+    /**
+     * Configuración del AuthenticationManager.
+     * 
+     * @param config AuthenticationConfiguration
+     * @return AuthenticationManager
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
     
-
+    /**
+     * Configuración del SecurityFilterChain.
+     * 
+     * @param http HttpSecurity
+     * @return SecurityFilterChain
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 

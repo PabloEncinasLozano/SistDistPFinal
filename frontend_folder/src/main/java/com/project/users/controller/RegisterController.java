@@ -15,7 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.authentication.AuthenticationManager;
 
 
-
+/**
+ * Controlador para manejar el registro de nuevos usuarios.
+ * Proporciona métodos para mostrar el formulario de registro y procesar el registro.
+ */
 @Controller
 public class RegisterController {
     
@@ -25,7 +28,13 @@ public class RegisterController {
     private final AuthenticationManager authenticationManager;
 
 
-
+    /**
+     * Constructor de la clase RegisterController.
+     * 
+     * @param registerService Servicio para manejar el registro de usuarios.
+     * @param authenticationManager Manejador de autenticación.
+     * @param userDetailsService Servicio para cargar detalles del usuario.
+     */
     public RegisterController(RegisterService registerService, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.registerService = registerService;
@@ -33,6 +42,12 @@ public class RegisterController {
     }
 
 
+    /**
+     * Muestra el formulario de registro.
+     * 
+     * @param interfazConPantalla Modelo para la vista.
+     * @return Nombre de la vista del formulario de registro.
+     */
     @GetMapping("/register")
     public String mostrarRegistro(ModelMap interfazConPantalla) {
 
@@ -41,6 +56,14 @@ public class RegisterController {
     }
 
 
+    /**
+     * Procesa el registro de un nuevo usuario.
+     * 
+     * @param usuariodto DTO que contiene los datos del usuario a registrar.
+     * @param interfazConPantalla Modelo para la vista.
+     * @param redirectAttributes Atributos para redirección.
+     * @return Redirección a la página de inicio de sesión o al formulario de registro con errores.
+     */
     @PostMapping("/register")
     public String procesarRegistro(@ModelAttribute("usuario") Usersdto usuariodto, ModelMap interfazConPantalla, RedirectAttributes redirectAttributes) {
 
@@ -63,9 +86,7 @@ public class RegisterController {
         } catch (IllegalArgumentException e) {
             interfazConPantalla.addAttribute("error", e.getMessage()); // Mostrar el error en el HTML
             return "register";
-        }
-        
+        }  
     }
     
-
 }

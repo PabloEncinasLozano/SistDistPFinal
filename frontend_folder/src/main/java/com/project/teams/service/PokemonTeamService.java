@@ -10,6 +10,10 @@ import com.project.teams.repository.TeamRepository;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * Servicio para manejar las operaciones relacionadas con los equipos de Pokémon.
+ * Permite añadir, eliminar y modificar Pokémon en un equipo, así como obtener un equipo por su ID.
+ */
 @Service
 public class PokemonTeamService {
 
@@ -17,15 +21,26 @@ public class PokemonTeamService {
     private final TeamRepository teamRepo;
 
 
+    /**
+     * Constructor que inyecta los repositorios necesarios.
+     *
+     * @param pokemonTeamRepo Repositorio para manejar las operaciones de Pokémon en equipos.
+     * @param teamRepo Repositorio para manejar las operaciones de equipos.
+     */
     public PokemonTeamService(PokemonTeamRepository pokemonTeamRepo, TeamRepository teamRepo) {
         this.pokemonTeamRepo = pokemonTeamRepo;
         this.teamRepo = teamRepo;
     }
 
 
-
-
-    //Añadir un pokemon al equipo
+    /**
+     * Añade un Pokemon a un equipo.
+     *
+     * @param email El correo electrónico del usuario que posee el equipo.
+     * @param nombrePokemon El nombre del Pokémon a añadir.
+     * @param teamId El ID del equipo al que se añadirá el Pokémon.
+     * @return true si el Pokémon se añadió correctamente, false en caso contrario.
+     */
     public boolean addPokemon(String email, String nombrePokemon, int teamId){
 
         // Buscar el equipo por el id
@@ -52,7 +67,13 @@ public class PokemonTeamService {
     }
 
 
-    //Borrar un pokemon del equipo
+    /**
+     * Elimina un Pokémon de un equipo.
+     *
+     * @param nombrePokemon El nombre del Pokémon a eliminar.
+     * @param teamId El ID del equipo del que se eliminará el Pokémon.
+     * @return true si el Pokémon se eliminó correctamente, false en caso contrario.
+     */
     @Transactional
     public boolean removePokemon(String nombrePokemon, int teamId){
 
@@ -73,7 +94,14 @@ public class PokemonTeamService {
 
 
     
-    //cambiar nombre de un pokemon del equipo
+    /**
+     * Cambia el nombre de un Pokémon en un equipo.
+     *
+     * @param nombreActual El nombre actual del Pokémon.
+     * @param nuevoNombrePokemon El nuevo nombre para el Pokémon.
+     * @param teamId El ID del equipo al que pertenece el Pokémon.
+     * @return true si el nombre se cambió correctamente, false en caso contrario.
+     */
     @Transactional
     public boolean changeNamePokemon(String nombreActual, String nuevoNombrePokemon, int teamId){
 
@@ -97,6 +125,13 @@ public class PokemonTeamService {
     }
 
 
+    /**
+     * Obtiene un equipo de Pokémon por su ID y el correo electrónico del propietario.
+     *
+     * @param id El ID del equipo.
+     * @param email El correo electrónico del propietario del equipo.
+     * @return El equipo de Pokémon si existe y pertenece al propietario, null en caso contrario.
+     */
     public Team getPokemonTeamById(int id, String email) {
         Team team = teamRepo.findById(id).orElse(null);
         if (team == null || !team.getEmail().equals(email)) {

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.project.users.model.User;
 import com.project.users.repository.UserRepository;
 
+/**
+ * Servicio para manejar las operaciones relacionadas con los usuarios.
+ * Proporciona métodos para obtener, modificar y eliminar usuarios por su correo electrónico.
+ */
 @Service
 public class UserService {
 
@@ -17,6 +21,12 @@ public class UserService {
     private UserRepository userRepo;
 
 
+    /**
+     * Obtiene un usuario por su correo electrónico.
+     *
+     * @param email El correo electrónico del usuario.
+     * @return Un objeto User con la información del usuario, o null si no se encuentra.
+     */
     public User getUserByEmail(String email) {
 
         Optional<User> user = userRepo.findByEmail(email);
@@ -30,7 +40,13 @@ public class UserService {
     }
 
 
-
+    /**
+     * Cambia el nombre de un usuario.
+     *
+     * @param email El correo electrónico del usuario.
+     * @param name El nuevo nombre del usuario.
+     * @return true si el nombre se cambió correctamente, false si no se encontró el usuario.
+     */
     public boolean changeName(String email, String name) {
 
         Optional<User> user = userRepo.findByEmail(email);
@@ -49,6 +65,13 @@ public class UserService {
     }
 
 
+    /**
+     * Cambia el apellido de un usuario.
+     *
+     * @param email El correo electrónico del usuario.
+     * @param surname El nuevo apellido del usuario.
+     * @return true si el apellido se cambió correctamente, false si no se encontró el usuario.
+     */
     public boolean changeSurname(String email, String surname) {
 
         Optional<User> user = userRepo.findByEmail(email);
@@ -67,7 +90,13 @@ public class UserService {
     }
 
 
-
+    /**
+     * Cambia el correo electrónico de un usuario.
+     *
+     * @param email El correo electrónico actual del usuario.
+     * @param newEmail El nuevo correo electrónico del usuario.
+     * @return true si el correo electrónico se cambió correctamente, false si no se encontró el usuario o si el nuevo correo ya está en uso.
+     */
     public boolean changeEmail(String email, String newEmail) {
 
         Optional<User> user = userRepo.findByEmail(email);
@@ -93,6 +122,13 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * Cambia la contraseña de un usuario.
+     *
+     * @param email El correo electrónico del usuario.
+     * @param newPassword La nueva contraseña del usuario.
+     * @return true si la contraseña se cambió correctamente, false si no se encontró el usuario.
+     */
     public boolean changePassword(String email, String newPassword) {
 
         Optional<User> user = userRepo.findByEmail(email);
